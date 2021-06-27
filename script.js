@@ -41,7 +41,10 @@ function addBookToLibrary() {
         }
     })
 
+
     if (error) return;
+
+    resetPopupForm();
 
     myLibrary.push(new Book(container.name, container.pages, container.author, container.read, (new Date()).getTime()));
 
@@ -106,6 +109,20 @@ function resetTable(params) {
     
 }
 
+function resetPopupForm(params) {
+    popupInputs.forEach(popupInput =>
+    {
+        
+        if (popupInput.type == "button") return;
+        if (popupInput.type == "checkbox")
+        {
+            popupInput.checked = false;
+        } else
+        {
+            popupInput.value = ""
+        }
+    })
+}
 
 
 
@@ -128,3 +145,4 @@ console.log(popupInputs);
 const table = document.querySelector("table");
 
 resetTable();
+
