@@ -11,6 +11,11 @@ h1 {
     text-align: center;
 }
 
+input[type="checkbox"] {
+    height: 30px;
+    width: 30px;
+}
+
 table {
     background-color: rgb(145, 106, 59);
     margin: 30px auto;
@@ -23,6 +28,7 @@ td, th
 {
     width: 15vw;
     height: 10vh;
+    
 }
 
 tr {
@@ -45,6 +51,27 @@ th
     height: 50px;
     width: 100px;
     font-size: 15px;
+}
+
+
+.centerItemsInContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.removeButton {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    background-color: rgba(134, 48, 48, 0.986);
+    border: 2px solid black;
+    box-shadow: 2px 2px;
+
+}
+
+.removeButton:hover
+{
+    background-color: rgba(154, 68, 68, 0.986);
 }
 
 #control
