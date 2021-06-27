@@ -40,30 +40,18 @@
             </div>
             
             <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Number of pages</th>
-                    <th>Author</th>
-                    <th>Has been read</th>
-                    <th>Remove</th>
-                </tr>
-                <tr>
-                    <td>Firstname</th>
-                    <td>Lastname</th>
-                    <td>Age</th>
-                    <td>
-                        <div class = "centerItemsInContainer">
-                            <input type = "checkbox" id = "readBox">
-                        </div>
-                    </td>
-                    <td>
-                        <div class = "centerItemsInContainer">
-                            <button type = "button" class = "removeButton"></button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Firstname</th>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Author</th>
+                        <th>Number of pages</th>
+                        <th>Has been read</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-index = "0">
+                        <td>Firstname</th>
                         <td>Lastname</th>
                         <td>Age</th>
                         <td>
@@ -76,18 +64,34 @@
                                 <button type = "button" class = "removeButton"></button>
                             </div>
                         </td>
-                </tr>
+                    </tr>
+                    <tr data-index = "1">
+                        <td>Firstname</th>
+                            <td>Lastname</th>
+                            <td>Age</th>
+                            <td>
+                                <div class = "centerItemsInContainer">
+                                    <input type = "checkbox" id = "readBox">
+                                </div>
+                            </td>
+                            <td>
+                                <div class = "centerItemsInContainer">
+                                    <button type = "button" class = "removeButton"></button>
+                                </div>
+                            </td>
+                    </tr>
+                </tbody>
             </table>
         </section>       
         
         <section id = "popupForm">
             Insert information about the book:
-            <input type = "text" class = "popupInput" id = "nameInput" placeholder="Insert name">
-            <input type = "text" class = "popupInput" id = "authorInput" placeholder="Insert author">
-            <input type = "number" class = "popupInput" id = "pagesInput" placeholder="Insert number of pages">
+            <input type = "text" class = "popupInput" id = "nameInput" data-variable="name" placeholder="Insert name">
+            <input type = "text" class = "popupInput" id = "authorInput" data-variable="author" placeholder="Insert author">
+            <input type = "number" class = "popupInput" id = "pagesInput" data-variable="pages" placeholder="Insert number of pages">
             <label for = "readInput">
                 Insert whether the book was read or not:
-                <input type = "checkbox" class = "popupInput" id = "readInput" placeholder="Insert number of pages">
+                <input type = "checkbox" class = "popupInput" id = "readInput" data-variable="read" placeholder="Insert number of pages">
             </label>
             <button type = "button" class = "popupInput" id = "popupAddBookButton"> Add the book</button>
         </section>
