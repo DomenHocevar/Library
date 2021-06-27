@@ -16,6 +16,14 @@ input[type="checkbox"] {
     width: 30px;
 }
 
+input[type="text"] {
+    height: 30px;
+}
+
+input[type="number"] {
+    height: 30px;
+}
+
 table {
     background-color: rgb(145, 106, 59);
     margin: 30px auto;
@@ -46,12 +54,7 @@ th
 }
 
 
-#addBookButton
-{
-    height: 50px;
-    width: 100px;
-    font-size: 15px;
-}
+
 
 
 .centerItemsInContainer {
@@ -59,6 +62,12 @@ th
     justify-content: center;
     align-items: center;
 }
+
+.popupInput
+{
+    margin: 5px;
+}
+
 .removeButton {
     height: 50px;
     width: 50px;
@@ -74,6 +83,19 @@ th
     background-color: rgba(154, 68, 68, 0.986);
 }
 
+#addBookButton {
+    height: 50px;
+    width: 100px;
+    font-size: 15px;
+}
+
+#popupAddBookButton {
+    height: 50px;
+    width: 100px;
+    font-size: 15px;
+    align-self: flex-end;
+}
+
 #control
 {
     display: flex;
@@ -84,4 +106,15 @@ th
     justify-content: space-around;
     align-items: center;
     border: 2px solid black;
+}
+
+#popupForm
+{  
+    display: none;
+    width: 30vw;
+    margin: auto;
+    flex-direction: column;
+    background-color: lightgrey;
+    border: 10px solid rgba(134, 48, 48, 0.986);
+    box-shadow: 5px 5px 10px black;
 }
