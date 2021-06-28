@@ -73,6 +73,14 @@ function removeBook(params) {
     resetTable();
 }
 
+
+function checkReadStatus(params) {
+    const row = this.parentNode.parentNode.parentNode;
+    myLibrary[row.dataset.index].read = this.checked;
+    console.log(this.checked);
+    resetTable();
+}
+
 function makeRow(book, ind) {
 
     function makeCellWithText(text) {
@@ -89,6 +97,19 @@ function makeRow(book, ind) {
     row.appendChild(makeCellWithText(book.author));
 
     row.appendChild(makeCellWithText(book.pages));
+
+    const checkboxCell  = document.createElement("td");
+    const centerDiv = document.createElement("div");
+    centerDiv.classList.add("centerItemsInContainer");
+    const checkbox = document.createElement("input");
+    checkbox.checked = book.read;
+    checkbox.type = "checkbox";
+    checkboxCell.appendChild(centerDiv);
+    centerDiv.appendChild(checkbox);
+    row.appendChild(checkboxCell);
+    checkbox.addEventListener("input", checkReadStatus);
+
+    
 
     return row;
 }
