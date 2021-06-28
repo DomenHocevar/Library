@@ -22,7 +22,6 @@ function addBookToLibrary() {
     error = false;
     popupInputs.forEach(popupInput =>
     {
-        console.log(popupInput);
         if (error) return;
         if (popupInput.type == "button") return;
         if (popupInput.type == "checkbox")
@@ -33,7 +32,12 @@ function addBookToLibrary() {
             let res = popupInput.value;
             if (!res) {
                 alert("The entry for " + popupInput.dataset.variable + " was left empty!");
-                console.log("oj");
+                error = true;
+                return;
+            }
+            if (popupInput.type == "number" && !isPositiveInteger(res))
+            {
+                alert("The entry for pages" + " must contain a positive integer!");
                 error = true;
                 return;
             }
@@ -52,6 +56,11 @@ function addBookToLibrary() {
     turnOnOverview();
 }
 
+function isPositiveInteger(str) {
+    let n = Math.floor(Number(str));
+    return String(n) === str && n > 0;
+}
+
 function turnOnOverview(params) {
     overview.style.display = "block";
     popupForm.style.display = "none";    
@@ -63,12 +72,7 @@ function turnOnPopupForm(params) {
 }
 
 function removeBook(params) {
-
-    const row = this.parentNode.parentNode.parentNode;
-    console.log(myLibrary);
-    console.log(row.getAttribute("data-index"));
-    myLibrary.splice(row.getAttribute("data-index"), 1);
-    console.log(myLibrary);
+    myLibrary.splice(this.dataset.bookIndex, 1);
     
     resetTable();
 }
@@ -77,7 +81,6 @@ function removeBook(params) {
 function checkReadStatus(params) {
     const row = this.parentNode.parentNode.parentNode;
     myLibrary[row.dataset.index].read = this.checked;
-    console.log(this.checked);
     resetTable();
 }
 
@@ -109,26 +112,50 @@ function makeRow(book, ind) {
     row.appendChild(checkboxCell);
     checkbox.addEventListener("input", checkReadStatus);
 
-    
+    const removeCell = document.createElement("td");
+    const centerDiv2 = document.createElement("div");
+    centerDiv2.classList.add("centerItemsInContainer");
+    const removeButton = document.createElement("button");
+    removeButton.type = "button";
+    removeButton.classList.add("removeButton");
+    removeCell.appendChild(centerDiv2);
+    centerDiv2.appendChild(removeButton);
+    row.appendChild(removeCell);
+    removeButton.dataset.bookIndex = row.dataset.index;
+    removeButton.addEventListener("click", removeBook);
 
     return row;
 }
 
+function sortBookBy(book1, book2) {
+    parameter = sortSelection.value;
+    if (parameter == "pages")
+    {
+        if (Number(book1[parameter]) < Number(book2[parameter])) return -1;
+        if (Number(book1[parameter]) == Number(book2[parameter])) return 0;
+        return 1;
+    }
+    if (book1[parameter] < book2[parameter]) return -1;
+    if (book1[parameter] == book2[parameter]) return 0;
+    return 1;
+}
+
 function resetTable(params) {
+    myLibrary.sort(sortBookBy);
+
     table.querySelectorAll("table tbody > *").forEach(child =>
     {
-        console.log("oj");
-        console.log(child);
         if (child.dataset.index != undefined) child.remove();
     })
 
     for (let i = 0; i < myLibrary.length; i++) {
         const row = makeRow(myLibrary[i], i);
-        console.log(row);
         table.querySelector("tbody").appendChild(row);
     }  
     
 }
+
+
 
 function resetPopupForm(params) {
     popupInputs.forEach(popupInput =>
@@ -146,7 +173,6 @@ function resetPopupForm(params) {
 }
 
 
-
 const addBookButton = document.querySelector("#addBookButton");
 addBookButton.addEventListener("click", turnOnPopupForm);
 
@@ -161,9 +187,11 @@ const removeButtons = document.querySelectorAll(".removeButton");
 removeButtons.forEach(removeButton => removeButton.addEventListener("click", removeBook));
 
 const popupInputs = document.querySelectorAll(".popupInput");
-console.log(popupInputs);
 
 const table = document.querySelector("table");
+
+const sortSelection = document.querySelector("#sortSelection");
+sortSelection.addEventListener("click", resetTable);
 
 resetTable();
 
