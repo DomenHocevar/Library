@@ -1,6 +1,19 @@
 
+Storage.prototype.setObj = function(key, obj) {
+    return this.setItem(key, JSON.stringify(obj));
+}
+Storage.prototype.getObj = function(key) {
+    if (this.getItem(key) == null) return null;
+    return JSON.parse(this.getItem(key));
+}
 
-const myLibrary = [];
+let myLibrary = [];
+
+if (localStorage.getObj("myLibrary"))
+{
+    myLibrary = localStorage.getObj("myLibrary");
+}
+
 
 
 function Book(name, pages, author, read, time) {
@@ -51,7 +64,7 @@ function addBookToLibrary() {
     resetPopupForm();
 
     myLibrary.push(new Book(container.name, container.pages, container.author, container.read, (new Date()).getTime()));
-
+    
     resetTable();
     turnOnOverview();
 }
@@ -74,6 +87,7 @@ function turnOnPopupForm(params) {
 function removeBook(params) {
     myLibrary.splice(this.dataset.bookIndex, 1);
     
+
     resetTable();
 }
 
@@ -81,6 +95,7 @@ function removeBook(params) {
 function checkReadStatus(params) {
     const row = this.parentNode.parentNode.parentNode;
     myLibrary[row.dataset.index].read = this.checked;
+    
     resetTable();
 }
 
@@ -142,6 +157,7 @@ function sortBookBy(book1, book2) {
 
 function resetTable(params) {
     myLibrary.sort(sortBookBy);
+    
 
     table.querySelectorAll("table tbody > *").forEach(child =>
     {
@@ -153,6 +169,7 @@ function resetTable(params) {
         table.querySelector("tbody").appendChild(row);
     }  
     
+    localStorage.setObj("myLibrary", myLibrary);
 }
 
 
