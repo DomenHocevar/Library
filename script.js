@@ -16,12 +16,14 @@ if (localStorage.getObj("myLibrary"))
 
 
 
-function Book(name, pages, author, read, time) {
-    this.name = name;
-    this.pages = pages;
-    this.author = author;
-    this.read = read;
-    this.time = time;
+class Book {
+    constructor(name, pages, author, read, time) {
+        this.name = name;
+        this.pages = pages;
+        this.author = author;
+        this.read = read;
+        this.time = time;
+    }
 }
 
 Book.prototype.toggleRead = function (params) {
